@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="portal.dao.UserDAO"> <!-- Repository와 연동을 위해 사용될 namespace -->
+
+	<resultMap id="userResultMap" type="portal.model.User">
+		<id column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="userpw" property="userpw" />
+	</resultMap>
+	
+	<select id="getUserById" resultMap="userResultMap"
+		parameterType="int">
+		SELECT 
+				*
+		FROM
+				User
+		WHERE	1=1
+				id = #{id}
+	</select>
+
+	<select id="getAllUsers" resultMap="userResultMap">
+		SELECT
+				*
+		FROM
+				User
+	</select>
+
+	<insert id="insertUser" parameterType="portal.model.User">
+		INSERT INTO
+				User (userid, userpw)
+				VALUES (#{userid}, #{userpw})
+	</insert>
+
+	<update id="updateUser" parameterType="portal.model.User">
+		UPDATE 
+				User
+		SET 
+				userid = #{userid}
+				,userpw = #{userpw}
+		WHERE 
+				id = #{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM 
+				User 
+		WHERE 
+				id = #{id}
+	</delete>
+
+</mapper>
